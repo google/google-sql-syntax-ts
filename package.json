@@ -25,5 +25,8 @@
     "mocha": "^10.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.44.0"
   }
 }

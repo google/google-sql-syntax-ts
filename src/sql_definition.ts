@@ -24,7 +24,7 @@ export interface FunctionParameter {
 
 /** Function signature */
 export interface FunctionSignature {
-  args: string | FunctionParameter[];
+  args: string|FunctionParameter[];
   url?: string;
   description?: string;
 }
@@ -33,15 +33,15 @@ export interface FunctionSignature {
  * Converts a function signature into a string (i.e. 'arg1, arg2, ..., argN').
  */
 export function signatureToString(signature: FunctionSignature): string {
-  if (typeof signature.args === "string") {
+  if (typeof signature.args === 'string') {
     return signature.args;
   }
 
   const parameters = signature.args;
-  if (!parameters.length) return "";
+  if (!parameters.length) return '';
   let str = parameters[0].arg;
   for (let i = 1; i < parameters.length; i++) {
-    str += ", " + parameters[i].arg;
+    str += ', ' + parameters[i].arg;
   }
   return str;
 }
@@ -55,7 +55,7 @@ export function signatureToString(signature: FunctionSignature): string {
  */
 export interface FunctionDescription {
   name: string;
-  args: string | FunctionSignature[];
+  args: string|FunctionSignature[];
   url?: string;
   description: string;
 }
@@ -74,40 +74,23 @@ export interface SqlDefinition {
   /** Returns clause words used in this SQL dialect. */
   getClauseWords(): string[];
 
-  /** Returns trie containing clause words used in this SQL dialect. */
-  getClauseWordsTrie(): Trie;
-
   /** returns clause words that should be connected when formatting a query. */
   getConnectedClauseWords(): ConnectedClause[];
 
   /** Returns keywords in this SQL dialect. */
   getKeywords(): string[];
 
-  /** Returns trie containing keywords in this SQL dialect. */
-  getKeywordsTrie(): Trie;
+  /** Returns reserved words in this SQL dialect. */
+  getReservedWords?(): string[];
 
-  /** Returns trie containing reserved words in this SQL dialect. */
-  getReservedWordsTrie(): Trie;
-
-  /**
-   * Returns function names in this SQL dialect.
-   */
+  /** Returns function names in this SQL dialect. */
   getFunctions(): string[];
-
-  /**
-   * Returns trie containing functions in this SQL dialect.  The trie values
-   * are arguments to the functions.
-   */
-  getFunctionsTrie(): Trie;
 
   /** Returns TVF function names in this SQL dialect. */
   getTvfFunctions(): string[];
 
-  /**
-   * Returns trie containing TVF functions in this SQL dialect. The trie values
-   * are arguments to the functions.
-   */
-  getTvfFunctionsTrie(): Trie;
+  /** Returns type names in this SQL dialect. */
+  getTypeNames?(): string[];
 
   /**
    * Returns character sequences that can start single-line comments in this
@@ -153,42 +136,6 @@ export interface SqlDefinition {
    */
   isUdfSupported(): boolean;
 
-  /** Returns trie containing type names in this SQL dialect. */
-  getTypeNamesTrie(): Trie;
-
-  /** Returns trie containing snippets that can be used in query */
-  getSnippetsTrie?(): Trie;
-}
-
-/** Util function for converting string arrays into tries. */
-export function makeTrie(strs: string[]) {
-  const trie = new Trie();
-  for (const str of strs) {
-    trie.set(str, true);
-  }
-  return trie;
-}
-
-/**
- * Builds Trie of reserved words. It's needed for tokenizer to recognize
- * reserved words.
- */
-export function buildReservedWordsTrie(
-  keywords: Trie,
-  clauseWords: Trie
-): Trie {
-  const reservedWords = new Trie();
-
-  for (const str of keywords.getKeys()) {
-    reservedWords.set(str, true);
-  }
-
-  for (const words of clauseWords.getKeys()) {
-    const strs = words.split(" ");
-    for (const str of strs) {
-      reservedWords.set(str, true);
-    }
-  }
-
-  return reservedWords;
+  /** Returns snippets that can be used in query */
+  getSnippetsTrie?(): string[];
 }

@@ -33,12 +33,6 @@ const NEWLINE_WORDS = [
   '\\s(ELSE\\s+)',
 ];
 
-function regExpEscape(s: string) {
-  return s
-      .replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1')
-      .replace(/\x08/g, '\\x08');
-};
-
 /**
  * Applies line formatting and keyword uppercasing to the query.  Looks for
  * keywords to capitalize; looks for clauses to place on their own line; looks
@@ -346,8 +340,7 @@ export class QueryFormatter {
 
   private getEscapedWordsRegex(): string {
     return (
-        regExpEscape(this.sqlDefinition.getBracketQuoteStart()) +
-        '(.*?)' +
+        regExpEscape(this.sqlDefinition.getBracketQuoteStart()) + '(.*?)' +
         regExpEscape(this.sqlDefinition.getBracketQuoteEnd()));
   }
 
@@ -372,3 +365,8 @@ export class QueryFormatter {
     );
   }
 }
+
+function regExpEscape(s: string): string {
+  return s.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1')
+      .replace(/\x08/g, '\\x08');
+};

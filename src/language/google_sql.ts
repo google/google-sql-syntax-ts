@@ -15,10 +15,12 @@
  * limitations under the License.
  */
 
-import {buildReservedWordsTrie, FunctionDescription, makeTrie, SqlDefinition,} from '../sql_definition';
+import {FunctionDescription, SqlDefinition,} from '../sql_definition';
 
 import {BIGQUERY_FUNCTIONS} from './bigquery_functions';
 import {SNIPPETS} from './snippets';
+
+import * as monaco from "monaco-editor"
 
 import IRichLanguageConfiguration = monaco.languages.LanguageConfiguration;
 import ILanguage = monaco.languages.IMonarchLanguage;
@@ -54,14 +56,6 @@ export interface DocsUrls {
  */
 export class GoogleSqlDefinition implements SqlDefinition {
   constructor(private readonly docsUrls: DocsUrls) {
-    this.CLAUSE_WORDS_WITH_TYPES.forEach((clause) => {
-      this.CLAUSE_WORDS_TRIE.set(clause.name, clause);
-    });
-
-    SNIPPETS.forEach((snippet) => {
-      this.SNIPPETS_TRIE.set(snippet.name, snippet);
-    });
-
     this.CLAUSE_WORDS.forEach((elem) => {
       const split = elem.split(' ');
       for (let i = 0; i < split.length - 1; i++) {
@@ -72,27 +66,10 @@ export class GoogleSqlDefinition implements SqlDefinition {
       }
     });
 
-    this.KEYWORDS.forEach((keyword) => {
-      this.KEYWORDS_TRIE.set(keyword, true);
+    this.RESERVED_WORDS = this.KEYWORDS;
+    this.CLAUSE_WORDS.forEach(word => {
+      word.split(' ').forEach(str => {this.RESERVED_WORDS.push(str)});
     });
-
-    this.RESERVED_WORDS_TRIE = buildReservedWordsTrie(
-        this.KEYWORDS_TRIE,
-        this.CLAUSE_WORDS_TRIE,
-    );
-
-    this.mergedSqlFunctions().forEach((functionInfo) => {
-      this.FUNCTIONS_TRIE.set(functionInfo.name, functionInfo);
-    });
-
-    this.TVF_FUNCTIONS_WITH_INFO.forEach(
-        (functionInfo) => {
-          this.TVF_FUNCTIONS_TRIE.set(
-              functionInfo.name,
-              functionInfo,
-          );
-        },
-    );
   }
 
   private readonly CLAUSE_WORDS_WITH_TYPES = [
@@ -270,11 +247,6 @@ export class GoogleSqlDefinition implements SqlDefinition {
   /** Clauses. */
   readonly CLAUSE_WORDS = this.CLAUSE_WORDS_WITH_TYPES.map((word) => word.name);
 
-  /** Keywords that start a clause. */
-  private readonly CLAUSE_WORDS_TRIE = new Trie();
-
-  private readonly SNIPPETS_TRIE = new Trie();
-
   /** Clause words that should be connected when formatting a query. */
   private readonly CONNECTED_CLAUSE_WORDS = [
     {first: 'FROM', second: '('},
@@ -345,11 +317,8 @@ export class GoogleSqlDefinition implements SqlDefinition {
     // go/keep-sorted end
   ];
 
-  /** Trie for keywords. */
-  private readonly KEYWORDS_TRIE = new Trie();
-
-  /** Trie for reserved words. */
-  private readonly RESERVED_WORDS_TRIE = new Trie();
+  /** Reserved words. */
+  private readonly RESERVED_WORDS: string[] = [];
 
   /** Functions with their possible arguments. */
   private readonly FUNCTIONS_WITH_INFO: FunctionDescription[] = [
@@ -1518,8 +1487,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
   ];
 
   mergedSqlFunctions(): FunctionDescription[] {
-    const sqlFunctions: FunctionDescription[] =
-        ([] as FunctionDescription[]).concat(this.FUNCTIONS_WITH_INFO);
+    const sqlFunctions: FunctionDescription[] = this.FUNCTIONS_WITH_INFO;
     const sqlFunctionSet = new Set<string>(
         sqlFunctions.map((sqlFunction) => sqlFunction.name),
     );
@@ -1536,9 +1504,6 @@ export class GoogleSqlDefinition implements SqlDefinition {
         return elem.name;
       },
   );
-
-  /** Trie for function names. */
-  private readonly FUNCTIONS_TRIE = new Trie();
 
   /** Table-valued functions with their possible arguments. */
   private readonly TVF_FUNCTIONS_WITH_INFO = [
@@ -1570,14 +1535,11 @@ export class GoogleSqlDefinition implements SqlDefinition {
       },
   );
 
-  /** Trie for TVF function names. */
-  private readonly TVF_FUNCTIONS_TRIE = new Trie();
-
   /**
    * Type names. From
    * https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types
    */
-  private readonly TYPE_NAMES_TRIE = makeTrie([
+  private readonly TYPE_NAMES = [
     'INT64',
     'FLOAT64',
     'NUMERIC',
@@ -1596,7 +1558,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
     'JSON',
     'ARRAY',
     'STRUCT',
-  ]);
+  ];
 
 
   readonly OPERATORS = [
@@ -1621,10 +1583,6 @@ export class GoogleSqlDefinition implements SqlDefinition {
     return this.CLAUSE_WORDS;
   }
 
-  getClauseWordsTrie() {
-    return this.CLAUSE_WORDS_TRIE;
-  }
-
   getConnectedClauseWords() {
     return this.CONNECTED_CLAUSE_WORDS;
   }
@@ -1633,32 +1591,20 @@ export class GoogleSqlDefinition implements SqlDefinition {
     return this.KEYWORDS;
   }
 
-  getKeywordsTrie() {
-    return this.KEYWORDS_TRIE;
-  }
-
-  getReservedWordsTrie() {
-    return this.RESERVED_WORDS_TRIE;
+  getReservedWords() {
+    return this.RESERVED_WORDS;
   }
 
   getFunctions() {
     return this.FUNCTIONS;
   }
 
-  getFunctionsTrie() {
-    return this.FUNCTIONS_TRIE;
-  }
-
   getTvfFunctions() {
     return this.TVF_FUNCTIONS;
   }
 
-  getTvfFunctionsTrie() {
-    return this.TVF_FUNCTIONS_TRIE;
-  }
-
-  getTypeNamesTrie() {
-    return this.TYPE_NAMES_TRIE;
+  getTypeNames() {
+    return this.TYPE_NAMES;
   }
 
   getSingleLineCommentStarts() {
@@ -1701,8 +1647,8 @@ export class GoogleSqlDefinition implements SqlDefinition {
     return true;
   }
 
-  getSnippetsTrie() {
-    return this.SNIPPETS_TRIE;
+  getSnippets() {
+    return SNIPPETS.map((snippet) => snippet.name);
   }
 }
 

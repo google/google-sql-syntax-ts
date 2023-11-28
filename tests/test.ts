@@ -36,7 +36,7 @@ describe('Query Formatter', () => {
     it('formats basic SQL', () => {
         const queryFormatter = new QueryFormatter(new GoogleSqlDefinition(DOCS_URLS));
 
-        expect(queryFormatter.formatQuery("SELECT 1\n\n\n\nAS *")).to.equal("SELECT 1 AS *");
+        expect(queryFormatter.formatQuery("SELECT 1\n\n\n\nAS *")).to.equal("SELECT\n  1 AS *");
     });
 });
 
