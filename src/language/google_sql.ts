@@ -55,7 +55,7 @@ export interface DocsUrls {
  * SQL definition for GoogleSQL, also known as standard SQL.
  */
 export class GoogleSqlDefinition implements SqlDefinition {
-  constructor(private readonly docsUrls: DocsUrls) {
+  constructor(private readonly docsUrls?: DocsUrls) {
     this.CLAUSE_WORDS.forEach((elem) => {
       const split = elem.split(' ');
       for (let i = 0; i < split.length - 1; i++) {
@@ -787,7 +787,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
       args: '[value][, ...]',
       description: 'Creates a JSON array from zero or more SQL values.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_ARRAY,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_ARRAY,
     },
     {
       name: 'JSON_ARRAY_APPEND',
@@ -795,7 +795,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
           '[, append_each_element=>{ TRUE | FALSE }]',
       description: 'Appends JSON data to the end of a JSON array.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_ARRAY_APPEND,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_ARRAY_APPEND,
     },
     {
       name: 'JSON_ARRAY_INSERT',
@@ -803,7 +803,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
           '[, insert_each_element=>{ TRUE | FALSE }]',
       description: 'Inserts JSON data into a JSON array.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_ARRAY_INSERT,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_ARRAY_INSERT,
     },
     {
       name: 'JSON_OBJECT',
@@ -813,14 +813,14 @@ export class GoogleSqlDefinition implements SqlDefinition {
               args: '[json_key, json_value][, ...]',
               description: 'Creates a JSON object, using key value pairs.',
               url: this.docsUrls
-                     .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_OBJECT_SIGNATURE2,
+                     ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_OBJECT_SIGNATURE2,
             },
             {
               args: 'json_key_array, json_value_array',
               description: 'Creates a JSON object, using an array of keys and ' +
                   'values.',
               url: this.docsUrls
-                     .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_OBJECT_SIGNATURE1,
+                     ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_OBJECT_SIGNATURE1,
             },
           ],
       description: '',
@@ -830,14 +830,14 @@ export class GoogleSqlDefinition implements SqlDefinition {
       args: 'json_expr, json_path[, ...]',
       description: 'Removes JSON data.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_REMOVE,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_REMOVE,
     },
     {
       name: 'JSON_SET',
       args: 'json_expr, json_path, value[, json_path, value][...]',
       description: 'Inserts or replaces existing JSON data.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_SET,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_SET,
     },
     {
       name: 'JSON_STRIP_NULLS',
@@ -846,7 +846,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
       description: 'Recursively removes JSON nulls from JSON objects and ' +
           'JSON arrays.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_STRIP_NULLS,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_JSON_STRIP_NULLS,
     },
     {
       name: 'LAG',
@@ -883,7 +883,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
       args: 'json_expr',
       description: 'Attempts to convert a JSON value to a SQL BOOL value.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_LAX_BOOL,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_LAX_BOOL,
     },
     {
       name: 'LAX_FLOAT64',
@@ -891,7 +891,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
       description: 'Attempts to convert a JSON expression to a SQL FLOAT64 ' +
           'value.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_LAX_DOUBLE,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_LAX_DOUBLE,
     },
     {
       name: 'LAX_INT64',
@@ -899,7 +899,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
       description:
           'Attempts to convert a JSON expression to a SQL INT64 value.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_LAX_INT64,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_LAX_INT64,
     },
     {
       name: 'LAX_STRING',
@@ -907,7 +907,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
       description: 'Attempts to convert a JSON expression to a SQL STRING ' +
           'value.',
       url: this.docsUrls
-             .CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_LAX_STRING,
+             ?.CONSOLE__BIGQUERY_DOCS_REFERENCE_STANDARD_SQL_JSON_FUNCTIONS_LAX_STRING,
     },
     {
       name: 'LEAD',
