@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
+import * as monaco from "monaco-editor"
+
 import {FunctionDescription, SqlDefinition,} from '../sql_definition';
 
 import {BIGQUERY_FUNCTIONS} from './bigquery_functions';
 import {SNIPPETS} from './snippets';
-
-import * as monaco from "monaco-editor"
 
 import IRichLanguageConfiguration = monaco.languages.LanguageConfiguration;
 import ILanguage = monaco.languages.IMonarchLanguage;
@@ -66,9 +66,11 @@ export class GoogleSqlDefinition implements SqlDefinition {
       }
     });
 
-    this.RESERVED_WORDS = this.KEYWORDS;
+    this.RESERVED_WORDS = this.RESERVED_WORDS.concat(this.KEYWORDS);
     this.CLAUSE_WORDS.forEach(word => {
-      word.split(' ').forEach(str => {this.RESERVED_WORDS.push(str)});
+      word.split(' ').forEach(str => {
+        this.RESERVED_WORDS.push(str);
+      });
     });
   }
 
@@ -1487,7 +1489,8 @@ export class GoogleSqlDefinition implements SqlDefinition {
   ];
 
   mergedSqlFunctions(): FunctionDescription[] {
-    const sqlFunctions: FunctionDescription[] = this.FUNCTIONS_WITH_INFO;
+    const sqlFunctions: FunctionDescription[] =
+        ([] as FunctionDescription[]).concat(this.FUNCTIONS_WITH_INFO);
     const sqlFunctionSet = new Set<string>(
         sqlFunctions.map((sqlFunction) => sqlFunction.name),
     );
@@ -1583,6 +1586,10 @@ export class GoogleSqlDefinition implements SqlDefinition {
     return this.CLAUSE_WORDS;
   }
 
+  getClauseWordsWithInfo() {
+    return this.CLAUSE_WORDS_WITH_TYPES;
+  }
+
   getConnectedClauseWords() {
     return this.CONNECTED_CLAUSE_WORDS;
   }
@@ -1599,8 +1606,16 @@ export class GoogleSqlDefinition implements SqlDefinition {
     return this.FUNCTIONS;
   }
 
+  getMergedSqlFunctions() {
+    return this.mergedSqlFunctions();
+  }
+
   getTvfFunctions() {
     return this.TVF_FUNCTIONS;
+  }
+
+  getTvfFunctionsWithInfo() {
+    return this.TVF_FUNCTIONS_WITH_INFO;
   }
 
   getTypeNames() {
@@ -1689,7 +1704,7 @@ export const googleSqlLanguageConfiguration: IRichLanguageConfiguration = {
 };
 
 /** The exported languaged definition for google sql. */
-export interface GoogleSqlLanguageDefinition extends ILanguage {
+export declare interface GoogleSqlLanguageDefinition extends ILanguage {
   keywords: string[];
   operators: string[];
   symbols: RegExp;

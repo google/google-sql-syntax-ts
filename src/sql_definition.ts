@@ -71,8 +71,11 @@ export interface ConnectedClause {
  * syntax highlighting a query.
  */
 export interface SqlDefinition {
-  /** Returns clause words used in this SQL dialect. */
+  /** Returns clause word names used in this SQL dialect. */
   getClauseWords(): string[];
+
+  /** Returns clause words used in this SQL dialect. */
+  getClauseWordsWithInfo?(): Array<{name: string}>;
 
   /** returns clause words that should be connected when formatting a query. */
   getConnectedClauseWords(): ConnectedClause[];
@@ -86,8 +89,14 @@ export interface SqlDefinition {
   /** Returns function names in this SQL dialect. */
   getFunctions(): string[];
 
+  /** Returns functions in this SQL dialect. */
+  getMergedSqlFunctions?(): Array<{name: string}>;
+
   /** Returns TVF function names in this SQL dialect. */
   getTvfFunctions(): string[];
+
+  /** Returns TVF functions in this SQL dialect. */
+  getTvfFunctionsWithInfo?(): Array<{name: string}>;
 
   /** Returns type names in this SQL dialect. */
   getTypeNames?(): string[];
@@ -137,5 +146,5 @@ export interface SqlDefinition {
   isUdfSupported(): boolean;
 
   /** Returns snippets that can be used in query */
-  getSnippetsTrie?(): string[];
+  getSnippets?(): string[];
 }
