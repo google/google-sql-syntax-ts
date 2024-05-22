@@ -5,11 +5,11 @@ Typescript and monaco definitions for Google SQL.
 ## Installation
 
 This package is
-[hosted on npm](https://www.npmjs.com/package/@google/google-sql), so can be
+[hosted on npm](https://www.npmjs.com/package/@google/google-sql-syntax-ts), so can be
 installed with `npm` or an equivalent package manager.
 
 ```
-npm i @google/google-sql
+npm i @google/google-sql-syntax-ts
 ```
 
 ## Formatting SQL
@@ -20,7 +20,7 @@ Example usage:
 import {
   QueryFormatter,
   GoogleSqlDefinition,
-} from "@google/google-sql/query_formatter";
+} from "@google/google-sql-syntax-ts/query_formatter";
 
 const queryFormatter = new QueryFormatter(new GoogleSqlDefinition({}));
 

@@ -1,5 +1,5 @@
 {
-  "name": "google-sql",
+  "name": "google-sql-syntax-ts",
   "version": "1.0.0",
   "description": "Typescript and monaco definitions for Google SQL.",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/googlestaging/google-sql.git"
+    "url": "git+https://github.com/google/google-sql-syntax-ts.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/googlestaging/google-sql/issues"
+    "url": "https://github.com/google/google-sql-syntax-ts/issues"
   },
-  "homepage": "https://github.com/googlestaging/google-sql#readme",
+  "homepage": "https://github.com/google/google-sql-syntax-ts#readme",
   "devDependencies": {
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
