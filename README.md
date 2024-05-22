@@ -17,12 +17,9 @@ npm i @google/google-sql-syntax-ts
 Example usage:
 
 ```typescript
-import {
-  QueryFormatter,
-  GoogleSqlDefinition,
-} from "@google/google-sql-syntax-ts/query_formatter";
+import { QueryFormatter, GoogleSqlDefinition } from "google-sql-syntax-ts";
 
-const queryFormatter = new QueryFormatter(new GoogleSqlDefinition({}));
+const queryFormatter = new QueryFormatter(new GoogleSqlDefinition());
 
 const formattedQuery = queryFormatter.formatQuery(
   "SELECT column, REGEXP_CONTAINS(column, r'a') AS column_contains_a FROM `some-table` WHERE date > 1970-01-01"

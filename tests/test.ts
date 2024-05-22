@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { QueryFormatter } from "../src/query_formatter";
-import { GoogleSqlDefinition, DocsUrls } from "../src/language/google_sql";
+import { QueryFormatter } from "../query_formatter";
+import { GoogleSqlDefinition } from "../language/google_sql";
 import { expect } from "chai";
 
 // Note: there are a lot more tests for this package, but they are not currently open source.
