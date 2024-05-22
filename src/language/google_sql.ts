@@ -225,6 +225,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
     {name: 'ASSERT', type: 'assert'},
     {name: 'EXPORT DATA', type: 'export'},
     {name: 'EXPORT DATA WITH CONNECTION', type: 'export'},
+    {name: 'EXPORT TABLE METADATA', type: 'export'},
     {name: 'LOAD DATA INTO', type: 'load'},
     {name: 'LOAD DATA OVERWRITE', type: 'load'},
     {name: 'PARTITIONS', type: 'load'},
@@ -244,6 +245,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
     {name: 'REFERENCES', type: 'create'},
     {name: 'UNDROP SCHEMA', type: 'undrop'},
     {name: 'UNDROP SCHEMA IF NOT EXISTS', type: 'undrop'},
+    {name: 'QUALIFY', type: 'qualify'},
   ];
 
   /** Clauses. */
@@ -262,60 +264,60 @@ export class GoogleSqlDefinition implements SqlDefinition {
     // go/keep-sorted start
     'ACCESS',  // Comment to keep single-column format
     'ADD',     // Comment to keep single-column format
-    'AGGREGATE',    'ALL',         'ALTER',
-    'AND',          'ANY',         'ARRAY',
-    'AS',           'ASC',         'ASSERT_ROWS_MODIFIED',
-    'ASSIGNMENT',   'AT',          'BEGIN',
-    'BETWEEN',      'BI_CAPACITY', 'BY',
-    'CAPACITY',     'CASCADE',     'CASE',
-    'CAST',         'CLONE',       'CLUSTER',
-    'COLLATE',      'COLUMN',      'COLUMNS',
-    'COMMIT',       'CONNECTION',  'CONSTRAINT',
-    'CREATE',       'CROSS',       'CUBE',
-    'CURRENT',      'DATA',        'DEFAULT',
-    'DEFINE',       'DESC',        'DETERMINISTIC',
-    'DISTINCT',     'DO',          'DROP',
-    'ELSE',         'END',         'ENFORCED',
-    'ENUM',         'ESCAPE',      'EXCEPT',
-    'EXCLUDE',      'EXECUTE',     'EXISTS',
-    'EXPORT',       'EXTERNAL',    'EXTRACT',
-    'FALSE',        'FETCH',       'FILES',
-    'FILTER',       'FIRST',       'FOLLOWING',
-    'FOR',          'FOREIGN',     'FULL',
-    'FUNCTION',     'GRANT',       'GROUP',
-    'GROUPING',     'GROUPS',      'HASH',
-    'IF',           'IGNORE',      'IMMEDIATE',
-    'IN',           'INDEX',       'INNER',
-    'INOUT',        'INTERSECT',   'INTERVAL',
-    'INTO',         'IS',          'KEY',
-    'LANGUAGE',     'LAST',        'LATERAL',
-    'LEFT',         'LIKE',        'LOAD',
-    'LOOKUP',       'MATCHED',     'MATERIALIZED',
-    'MERGE',        'MODEL',       'NATURAL',
-    'NEW',          'NO',          'NOT',
-    'NULL',         'NULLS',       'OF',
-    'OPTIONS',      'OR',          'ORDER',
-    'ORGANIZATION', 'OUT',         'OUTER',
-    'OVER',         'OVERWRITE',   'PARTITION',
-    'PARTITIONS',   'PIVOT',       'POLICIES',
-    'POLICY',       'PRECEDING',   'PRIMARY',
-    'PROCEDURE',    'PROJECT',     'PROTO',
-    'QUALIFY',      'RANGE',       'RECURSIVE',
-    'REFERENCES',   'RENAME',      'REPEAT',
-    'REPLICA',      'RESERVATION', 'RESPECT',
-    'RESTRICT',     'RETURNS',     'RIGHT',
-    'ROLLBACK',     'ROLLUP',      'ROW',
-    'ROWS',         'SCHEMA',      'SEARCH',
-    'SET',          'SETS',        'SNAPSHOT',
-    'SOME',         'SOURCE',      'STRUCT',
-    'TABLE',        'TABLESAMPLE', 'TARGET',
-    'TEMP',         'TEMPORARY',   'THEN',
-    'TO',           'TRANSACTION', 'TREAT',
-    'TRUE',         'TRUNCATE',    'UNBOUNDED',
-    'UNDROP',       'UNION',       'UNNEST',
-    'UNPIVOT',      'UNTIL',       'USING',
-    'VIEW',         'WHEN',        'WITH',
-    'WITHIN',
+    'AGGREGATE',  'ALL',          'ALTER',
+    'AND',        'ANY',          'ARRAY',
+    'AS',         'ASC',          'ASSERT_ROWS_MODIFIED',
+    'ASSIGNMENT', 'AT',           'BEGIN',
+    'BETWEEN',    'BI_CAPACITY',  'BY',
+    'CAPACITY',   'CASCADE',      'CASE',
+    'CAST',       'CLONE',        'CLUSTER',
+    'COLLATE',    'COLUMN',       'COLUMNS',
+    'COMMIT',     'CONNECTION',   'CONSTRAINT',
+    'CREATE',     'CROSS',        'CUBE',
+    'CURRENT',    'DATA',         'DEFAULT',
+    'DEFINE',     'DESC',         'DETERMINISTIC',
+    'DISTINCT',   'DO',           'DROP',
+    'ELSE',       'END',          'ENFORCED',
+    'ENUM',       'ESCAPE',       'EXCEPT',
+    'EXCLUDE',    'EXECUTE',      'EXISTS',
+    'EXPORT',     'EXTERNAL',     'EXTRACT',
+    'FALSE',      'FETCH',        'FILES',
+    'FILTER',     'FIRST',        'FOLLOWING',
+    'FOR',        'FOREIGN',      'FULL',
+    'FUNCTION',   'GRANT',        'GROUP',
+    'GROUPING',   'GROUPS',       'HASH',
+    'IF',         'IGNORE',       'IMMEDIATE',
+    'IN',         'INDEX',        'INNER',
+    'INOUT',      'INTERSECT',    'INTERVAL',
+    'INTO',       'IS',           'KEY',
+    'LANGUAGE',   'LAST',         'LATERAL',
+    'LEFT',       'LIKE',         'LOAD',
+    'LOOKUP',     'MATCHED',      'MATERIALIZED',
+    'MERGE',      'METADATA',     'MODEL',
+    'NATURAL',    'NEW',          'NO',
+    'NOT',        'NULL',         'NULLS',
+    'OF',         'OPTIONS',      'OR',
+    'ORDER',      'ORGANIZATION', 'OUT',
+    'OUTER',      'OVER',         'OVERWRITE',
+    'PARTITION',  'PARTITIONS',   'PIVOT',
+    'POLICIES',   'POLICY',       'PRECEDING',
+    'PRIMARY',    'PROCEDURE',    'PROJECT',
+    'PROTO',      'QUALIFY',      'RANGE',
+    'RECURSIVE',  'REFERENCES',   'RENAME',
+    'REPEAT',     'REPLICA',      'RESERVATION',
+    'RESPECT',    'RESTRICT',     'RETURNS',
+    'RIGHT',      'ROLLBACK',     'ROLLUP',
+    'ROW',        'ROWS',         'SCHEMA',
+    'SEARCH',     'SET',          'SETS',
+    'SNAPSHOT',   'SOME',         'SOURCE',
+    'STRUCT',     'TABLE',        'TABLESAMPLE',
+    'TARGET',     'TEMP',         'TEMPORARY',
+    'THEN',       'TO',           'TRANSACTION',
+    'TREAT',      'TRUE',         'TRUNCATE',
+    'UNBOUNDED',  'UNDROP',       'UNION',
+    'UNNEST',     'UNPIVOT',      'UNTIL',
+    'USING',      'VIEW',         'WHEN',
+    'WITH',       'WITHIN',
     // go/keep-sorted end
   ];
 
@@ -1529,6 +1531,22 @@ export class GoogleSqlDefinition implements SqlDefinition {
       name: 'ML.WEIGHTS',
       args: 'MODEL model',
     },
+    {
+      name: 'GAP_FILL',
+      args: 'TABLE table | (subquery), time_series_column, bucket_width ' +
+          '[, partitioning_columns, value_columns, origin, ignore_null_values]',
+      description: 'Finds and fills gaps in a time series.',
+      url: 'https://cloud.google.com/bigquery/docs/reference/standard-sql/' +
+          'functions-and-operators#gap_fill',
+    },
+    {
+      name: 'RANGE_SESSIONIZE',
+      args: 'TABLE table | (subquery), STRING range_column, ' +
+          'ARRAY<STRING> partitioning_columns [, sessionize_mode]',
+      description: 'Produces a table of sessionized ranges.',
+      url:
+          'https://cloud.google.com/bigquery/docs/reference/standard-sql/range-functions#range_sessionize'
+    },
   ];
 
   /** Table-valued functions. */
@@ -1543,24 +1561,10 @@ export class GoogleSqlDefinition implements SqlDefinition {
    * https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types
    */
   private readonly TYPE_NAMES = [
-    'INT64',
-    'FLOAT64',
-    'NUMERIC',
-    'DECIMAL',
-    'BIGNUMERIC',
-    'BIGDECIMAL',
-    'BOOL',
-    'STRING',
-    'BYTES',
-    'DATE',
-    'DATETIME',
-    'TIME',
-    'TIMESTAMP',
-    'INTERVAL',
-    'GEOGRAPHY',
-    'JSON',
-    'ARRAY',
-    'STRUCT',
+    'INT64',      'FLOAT64', 'NUMERIC',   'DECIMAL',  'BIGNUMERIC',
+    'BIGDECIMAL', 'BOOL',    'STRING',    'BYTES',    'DATE',
+    'DATETIME',   'TIME',    'TIMESTAMP', 'INTERVAL', 'GEOGRAPHY',
+    'JSON',       'ARRAY',   'STRUCT',    'RANGE',
   ];
 
 
@@ -1663,7 +1667,7 @@ export class GoogleSqlDefinition implements SqlDefinition {
   }
 
   getSnippets() {
-    return SNIPPETS.map((snippet) => snippet.name);
+    return SNIPPETS;
   }
 }
 

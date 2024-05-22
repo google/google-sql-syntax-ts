@@ -146,5 +146,5 @@ export interface SqlDefinition {
   isUdfSupported(): boolean;
 
   /** Returns snippets that can be used in query */
-  getSnippets?(): string[];
+  getSnippets?(): Array<{name: string, snippetText: string}>;
 }

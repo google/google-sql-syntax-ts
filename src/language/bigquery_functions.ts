@@ -1321,6 +1321,14 @@ const DATE_ADD = {
   url: '',
 };
 
+const DATE_BUCKET = {
+  name: 'DATE_BUCKET',
+  args: 'date_expression, bucket_width [, origin]',
+  description: 'Gets the lower bound of the date bucket that contains a date.',
+  url: 'https://cloud.google.com/bigquery/docs/reference/standard-sql/' +
+      'functions-and-operators#date_bucket',
+};
+
 const DATE_SUB = {
   name: 'DATE_SUB',
   args: 'date_expression, INTERVAL int64_expression date_part',
@@ -1411,6 +1419,16 @@ const DATETIME_ADD = {
   description: '',
   url: '',
 };
+
+const DATETIME_BUCKET = {
+  name: 'DATETIME_BUCKET',
+  args: 'datetime_expression, bucket_width [, origin]',
+  description:
+      'Gets the lower bound of the datetime bucket that contains a datetime.',
+  url: 'https://cloud.google.com/bigquery/docs/reference/standard-sql/' +
+      'functions-and-operators#datetime_bucket',
+};
+
 
 const DATETIME_SUB = {
   name: 'DATETIME_SUB',
@@ -1569,6 +1587,15 @@ const TIMESTAMP_ADD = {
   args: 'timestamp_expression, INTERVAL int64_expression date_part',
   description: '',
   url: '',
+};
+
+const TIMESTAMP_BUCKET = {
+  name: 'TIMESTAMP_BUCKET',
+  args: 'timestamp_expression, bucket_width [, origin]',
+  description:
+      'Gets the lower bound of the timestamp bucket that contains a timestamp.',
+  url: 'https://cloud.google.com/bigquery/docs/reference/standard-sql/' +
+      'functions-and-operators#timestamp_bucket',
 };
 
 const TIMESTAMP_SUB = {
@@ -2188,6 +2215,71 @@ const ERROR = {
   url: '',
 };
 
+const RANGE = {
+  name: 'RANGE',
+  args: [
+    {args: 'date_expression, date_expression'},
+    {args: 'datetime_expression, datetime_expression'},
+    {args: 'timestamp_expression, timestamp_expression'},
+  ],
+  description: 'Constructs a range of DATE, DATETIME, or TIMESTAMP values.',
+  url:
+      'https://cloud.google.com/bigquery/docs/reference/standard-sql/range-functions#range',
+};
+
+const RANGE_START = {
+  name: 'RANGE_START',
+  args: 'range_expression',
+  description: 'Gets the lower bound of a range.',
+  url:
+      'https://cloud.google.com/bigquery/docs/reference/standard-sql/range-functions#range_start',
+};
+
+const RANGE_END = {
+  name: 'RANGE_END',
+  args: 'range_expression',
+  description: 'Gets the upper bound of a range.',
+  url:
+      'https://cloud.google.com/bigquery/docs/reference/standard-sql/range-functions#range_end',
+};
+
+const RANGE_INTERSECT = {
+  name: 'RANGE_INTERSECT',
+  args: 'range_expression, range_expression',
+  description: 'Gets a segment of two ranges that intersect.',
+  url:
+      'https://cloud.google.com/bigquery/docs/reference/standard-sql/range-functions#range_intersect',
+};
+
+const RANGE_OVERLAPS = {
+  name: 'RANGE_OVERLAPS',
+  args: 'range_expression, range_expression',
+  description: 'Checks if two ranges overlap.',
+  url:
+      'https://cloud.google.com/bigquery/docs/reference/standard-sql/range-functions#range_overlaps',
+};
+
+const RANGE_CONTAINS = {
+  name: 'RANGE_CONTAINS',
+  args: [
+    {args: 'range_expression, range_expression'},
+    {args: 'range_expression, date_expression'},
+    {args: 'range_expression, datetime_expression'},
+    {args: 'range_expression, timestamp_expression'},
+  ],
+  description: 'Checks if one range or a value is in another range.',
+  url:
+      'https://cloud.google.com/bigquery/docs/reference/standard-sql/range-functions#range_contains',
+};
+
+const GENERATE_RANGE_ARRAY = {
+  name: 'GENERATE_RANGE_ARRAY',
+  args: 'range_expression, INTERVAL step_expression [, bool_expression]',
+  description: 'Splits a range into an array of subranges.',
+  url:
+      'https://cloud.google.com/bigquery/docs/reference/standard-sql/range-functions#generate_range_array',
+};
+
 /**
  * Array of SQL functions support in BigQuery. See
  * https://cloud.google.com/bigquery/docs/reference/standard-sql/functions-and-operators.
@@ -2376,6 +2468,7 @@ export const BIGQUERY_FUNCTIONS: FunctionDescription[] = [
   DATE_2,
   DATE_3,
   DATE_ADD,
+  DATE_BUCKET,
   DATE_SUB,
   DATE_DIFF,
   DATE_TRUNC,
@@ -2389,6 +2482,7 @@ export const BIGQUERY_FUNCTIONS: FunctionDescription[] = [
   DATETIME_2,
   DATETIME_3,
   DATETIME_ADD,
+  DATETIME_BUCKET,
   DATETIME_SUB,
   DATETIME_DIFF,
   DATETIME_TRUNC,
@@ -2410,6 +2504,7 @@ export const BIGQUERY_FUNCTIONS: FunctionDescription[] = [
   TIMESTAMP_2,
   TIMESTAMP_3,
   TIMESTAMP_ADD,
+  TIMESTAMP_BUCKET,
   TIMESTAMP_SUB,
   TIMESTAMP_DIFF,
   TIMESTAMP_TRUNC,
@@ -2498,4 +2593,11 @@ export const BIGQUERY_FUNCTIONS: FunctionDescription[] = [
   IFNULL,
   NULLIF,
   ERROR,
+  RANGE,
+  RANGE_START,
+  RANGE_END,
+  RANGE_CONTAINS,
+  RANGE_OVERLAPS,
+  RANGE_INTERSECT,
+  GENERATE_RANGE_ARRAY,
 ];
