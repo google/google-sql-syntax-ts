@@ -16,6 +16,6 @@
  */
 
 import { QueryFormatter } from "./query_formatter";
-import { GoogleSqlDefinition } from "./languages/google_sql";
+import { GoogleSqlDefinition } from "./language/google_sql";
 
 export { QueryFormatter, GoogleSqlDefinition };
