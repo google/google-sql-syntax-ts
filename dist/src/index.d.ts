@@ -14,15 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import * as monaco from "monaco-editor";
-
-import ILanguageExtensionPoint = monaco.languages.ILanguageExtensionPoint;
-
-/** Google sql language definition */
-export const googleSqlLanguage: ILanguageExtensionPoint = {
-  id: 'googlesql',
-  extensions: ['.googlesql'],
-  aliases: ['googleSQL'],
-  mimetypes: [],
-};
+import { QueryFormatter } from "./query_formatter";
+import { GoogleSqlDefinition } from "./language/google_sql";
+export { QueryFormatter, GoogleSqlDefinition };

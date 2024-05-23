@@ -14,15 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import * as monaco from "monaco-editor";
-
-import ILanguageExtensionPoint = monaco.languages.ILanguageExtensionPoint;
-
-/** Google sql language definition */
-export const googleSqlLanguage: ILanguageExtensionPoint = {
-  id: 'googlesql',
-  extensions: ['.googlesql'],
-  aliases: ['googleSQL'],
-  mimetypes: [],
-};
+import { FunctionDescription } from "../sql_definition";
+/**
+ * Array of SQL functions support in BigQuery. See
+ * https://cloud.google.com/bigquery/docs/reference/standard-sql/functions-and-operators.
+ *
+ * These functions are scraped from the markdown file from the url above using
+ * regex hackery. We need a more permanent solution to keep synced with new
+ * functions added to BigQuery SQL.
+ */
+export declare const BIGQUERY_FUNCTIONS: FunctionDescription[];

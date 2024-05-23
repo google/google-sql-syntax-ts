@@ -1,20 +1,22 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "lib": ["es6"],
+    "lib": ["es5"],
     "module": "commonjs",
     "rootDir": ".",
     "resolveJsonModule": true,
     "allowJs": true,
-    "outDir": "build",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "declaration": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "build/**/*"
   ]
 }

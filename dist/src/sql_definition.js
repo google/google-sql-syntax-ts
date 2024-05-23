@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright 2023 Google Inc. All Rights Reserved.
@@ -14,15 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import * as monaco from "monaco-editor";
-
-import ILanguageExtensionPoint = monaco.languages.ILanguageExtensionPoint;
-
-/** Google sql language definition */
-export const googleSqlLanguage: ILanguageExtensionPoint = {
-  id: 'googlesql',
-  extensions: ['.googlesql'],
-  aliases: ['googleSQL'],
-  mimetypes: [],
-};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.signatureToString = void 0;
+/**
+ * Converts a function signature into a string (i.e. 'arg1, arg2, ..., argN').
+ */
+function signatureToString(signature) {
+    if (typeof signature.args === 'string') {
+        return signature.args;
+    }
+    const parameters = signature.args;
+    if (!parameters.length)
+        return '';
+    let str = parameters[0].arg;
+    for (let i = 1; i < parameters.length; i++) {
+        str += ', ' + parameters[i].arg;
+    }
+    return str;
+}
+exports.signatureToString = signatureToString;

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright 2023 Google Inc. All Rights Reserved.
@@ -14,15 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import * as monaco from "monaco-editor";
-
-import ILanguageExtensionPoint = monaco.languages.ILanguageExtensionPoint;
-
-/** Google sql language definition */
-export const googleSqlLanguage: ILanguageExtensionPoint = {
-  id: 'googlesql',
-  extensions: ['.googlesql'],
-  aliases: ['googleSQL'],
-  mimetypes: [],
-};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GoogleSqlDefinition = exports.QueryFormatter = void 0;
+const query_formatter_1 = require("./query_formatter");
+Object.defineProperty(exports, "QueryFormatter", { enumerable: true, get: function () { return query_formatter_1.QueryFormatter; } });
+const google_sql_1 = require("./language/google_sql");
+Object.defineProperty(exports, "GoogleSqlDefinition", { enumerable: true, get: function () { return google_sql_1.GoogleSqlDefinition; } });

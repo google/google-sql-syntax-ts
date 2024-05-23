@@ -14,15 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import * as monaco from "monaco-editor";
-
-import ILanguageExtensionPoint = monaco.languages.ILanguageExtensionPoint;
-
-/** Google sql language definition */
-export const googleSqlLanguage: ILanguageExtensionPoint = {
-  id: 'googlesql',
-  extensions: ['.googlesql'],
-  aliases: ['googleSQL'],
-  mimetypes: [],
-};
+/** Snippet type */
+export interface Snippet {
+    name: string;
+    snippetText: string;
+}
+/** List of predefined snippets */
+export declare const SNIPPETS: {
+    name: string;
+    snippetText: string;
+}[];
