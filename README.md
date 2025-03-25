@@ -42,3 +42,13 @@ WHERE
 
 `googleSqlLanguageConfiguration` is exported, which can be used as a
 [language configuration for the Monaco Editor](https://microsoft.github.io/monaco-editor/typedoc/interfaces/languages.LanguageConfiguration.html).
+
+Example:
+```javascript
+import { googleSqlLanguage } from "google-sql-syntax-ts/src/language/google_sql.contribution";
+import { getGoogleSqlLanguageDefinition, googleSqlLanguageConfiguration } from "google-sql-syntax-ts/src/language/google_sql";
+
+monaco.languages.register(googleSqlLanguage);
+monaco.languages.setMonarchTokensProvider('googlesql', getGoogleSqlLanguageDefinition());
+monaco.languages.setLanguageConfiguration('googlesql', googleSqlLanguageConfiguration);
+```
