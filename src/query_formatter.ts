@@ -54,7 +54,7 @@ export class QueryFormatter {
 
     // Replace all whitespace with a single space. We'll add in line breaks and
     // indentation later as appropriate.
-    query = query.replace(/(\s|\n)+/g, ' ');
+    query = query.replace(/\s+/g, ' ');
 
     // Uppercase all keywords.
     for (const keyword of this.sqlDefinition.getKeywords()) {
@@ -100,7 +100,7 @@ export class QueryFormatter {
     for (const connectClause of this.sqlDefinition.getConnectedClauseWords()) {
       // Connect the two words if they are separated only by whitespace.
       const regex = new RegExp(
-          '(' + regExpEscape(connectClause.first) + ')(\\s|\\n)+(' +
+          '(' + regExpEscape(connectClause.first) + ')\\s+(' +
               regExpEscape(connectClause.second) + ')',
           'g',
       );
@@ -146,10 +146,10 @@ export class QueryFormatter {
     }
 
     // Put OVER clauses on a single line with whatever precedes them.
-    query = query.replace(/(\s|\n)*OVER(\s|\n)*\((.|\n)*?\)/g, (match) => {
+    query = query.replace(/\s*OVER\s*\((.|\n)*?\)/g, (match) => {
       // Replace all whitespace with a single space, removing any after the
       // initial open paren.
-      return match.replace(/\(?(\s|\n)+/g, (submatch) => {
+      return match.replace(/\(?\s+/g, (submatch) => {
         if (submatch.indexOf('(') > -1) {
           return '(';
         } else {
@@ -161,7 +161,7 @@ export class QueryFormatter {
     // Force CASE statement condition to be on the same line: everything between
     // WHEN and (non-inclusive) WHEN, ELSE or END.
     query = query.replace(
-        /WHEN(\s|\n)*(.|\n)*?(?:\nELSE|\nEND|\nWHEN)/g,
+        /WHEN\s*(.|\n)*?(?:\nELSE|\nEND|\nWHEN)/g,
         (match) => {
           // Replace newlines with a space.
           match = match.replace(/(\n)+(?!ELSE|END|WHEN)/g, ' ');
@@ -307,7 +307,7 @@ export class QueryFormatter {
     const startsRegex = this.sqlDefinition.getSingleLineCommentStarts()
                             .map(regExpEscape)
                             .join('|');
-    return '(\\s|\\n)*(' + startsRegex + ').*?(\\n|$)';
+    return '\\s*(' + startsRegex + ').*?(\\n|$)';
   }
 
   // A multi-line comment stats with /* and ends with a matching */ or end of

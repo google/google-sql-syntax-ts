@@ -36,4 +36,17 @@ FROM
 WHERE
   date > 1970-01-01`);
   });
+
+  it("formats SQL with many consecutive newlines in <1s", () => {
+    const queryFormatter = new QueryFormatter(new GoogleSqlDefinition());
+
+    const blankLines = "\n".repeat(28);
+    const query = `SELECT 1${blankLines}FROM \`some-table\``;
+
+    const start = Date.now();
+    queryFormatter.formatQuery(query);
+    const elapsedMs = Date.now() - start;
+
+    expect(elapsedMs).to.be.lessThan(1000);
+  });
 });
